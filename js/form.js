@@ -13,12 +13,20 @@ botaoAdicionar.addEventListener("click", function(event){
     //cria tr paciente
     var pacienteTr = criaTrPaciente(paciente)
 
-    //adiciona nova linha na tabela
-    var tabela = document.querySelector("#tabela-pacientes")
-    tabela.appendChild(pacienteTr)
+    var pacienteValido = validaPaciente(paciente.peso, paciente.altura)
+    
+    if(!pacienteValido){
+        alert('Campos preenchidos incorretamente, paciente Inválido!')
+        return
 
-    //limpa form
-    form.reset()
+    } else {
+        //adiciona nova linha na tabela
+        var tabela = document.querySelector("#tabela-pacientes")
+        tabela.appendChild(pacienteTr)
+
+        //limpa form
+        form.reset()
+    }
     
 })
 
