@@ -10,24 +10,24 @@ botaoAdicionar.addEventListener("click", function(event){
     //cria paciente
     var paciente = pegaDadosDoForm(form)
 
+    var erros = validaPaciente(paciente)
+    var mensagemErro = document.querySelector("#mensagem-erro")
+    
+    if(erros.length > 0){
+        exibeMensagensDeErro(erros, mensagemErro)
+        return;
+    } 
+
     //cria tr paciente
     var pacienteTr = criaTrPaciente(paciente)
 
-    var pacienteValido = validaPaciente(paciente.peso, paciente.altura)
+    //adiciona nova linha na tabela
+    var tabela = document.querySelector("#tabela-pacientes")
+    tabela.appendChild(pacienteTr)
+    form.reset()
     
-    if(!pacienteValido){
-        alert('Campos preenchidos incorretamente, paciente Inválido!')
-        return
+    mensagemErro.textContent=""
 
-    } else {
-        //adiciona nova linha na tabela
-        var tabela = document.querySelector("#tabela-pacientes")
-        tabela.appendChild(pacienteTr)
-
-        //limpa form
-        form.reset()
-    }
-    
 })
 
 function pegaDadosDoForm(form){
@@ -45,6 +45,7 @@ function pegaDadosDoForm(form){
 function criaTrPaciente(paciente){
     //cria elementos da proxima linha da tabela, define classe, popula com dados do paciente    
     var pacienteTr = document.createElement("tr")
+    pacienteTr.classList.add("paciente")
     
     //adiciona elementos na nova linha
     pacienteTr.appendChild(criaTdsPaciente(paciente.nome, "info-nome"))
@@ -62,4 +63,49 @@ function criaTdsPaciente(dado, classe){
     td.classList.add(classe)
 
     return td
+}
+
+function validaPaciente(paciente){
+    var erros = []
+
+    if(!validaPeso(paciente.peso)){
+        erros.push("Peso inválido")
+    } 
+
+    if(!validaAltura(paciente.altura)){
+        erros.push("Altura inválida")
+    } 
+
+    if(!validaGordura(paciente.gordura)){
+        erros.push("Gordura inválida")
+    }
+
+    if(paciente.nome.length == 0){
+        erros.push("Campo Nome não pode ser em branco")
+    }
+
+    if(paciente.gordura.length == 0){
+        erros.push("Campo Gordura não pode ser em branco")
+    }
+
+    if(paciente.peso.length == 0){
+        erros.push("Campo Peso não pode ser em branco")
+    }
+
+    if(paciente.altura.length == 0){
+        erros.push("Campo Altura não pode ser em branco")
+    }
+
+    return erros
+}
+
+function exibeMensagensDeErro(erros, mensagemErro){
+    
+    mensagemErro.innerHTML = ""
+
+    erros.forEach(function(erro){
+        var li = document.createElement("li")
+        li.textContent = erro
+        mensagemErro.appendChild(li)
+    })
 }
