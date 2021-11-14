@@ -7,7 +7,9 @@ filtro.addEventListener("input", ()=>{
         pacientes.forEach((paciente)=>{
             var nome = paciente.querySelector(".info-nome").textContent
     
-            if(nome != filtro.value){
+            var expressao = new RegExp(filtro.value, "i")
+
+            if(!expressao.test(nome)){
                 paciente.classList.add("esconde-paciente")
             } else {
                 paciente.classList.remove("esconde-paciente")
