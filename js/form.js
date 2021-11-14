@@ -18,12 +18,8 @@ botaoAdicionar.addEventListener("click", function(event){
         return;
     } 
 
-    //cria tr paciente
-    var pacienteTr = criaTrPaciente(paciente)
-
-    //adiciona nova linha na tabela
-    var tabela = document.querySelector("#tabela-pacientes")
-    tabela.appendChild(pacienteTr)
+    adicionaPacienteNaTabela(paciente)
+    
     form.reset()
     
     mensagemErro.textContent=""
@@ -63,6 +59,15 @@ function criaTdsPaciente(dado, classe){
     td.classList.add(classe)
 
     return td
+}
+
+function adicionaPacienteNaTabela(paciente){
+    //cria tr paciente
+    var pacienteTr = criaTrPaciente(paciente)
+
+    //adiciona nova linha na tabela
+    var tabela = document.querySelector("#tabela-pacientes")
+    tabela.appendChild(pacienteTr)
 }
 
 function validaPaciente(paciente){
