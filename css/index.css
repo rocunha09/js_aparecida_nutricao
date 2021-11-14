@@ -142,3 +142,12 @@ button[disabled=disabled], button:disabled {
 	font-size: 2em;
 	
 }
+
+.paciente{
+	cursor: pointer;
+}
+
+.fadeOut {
+	opacity: 0;
+	transition: 1s;
+}

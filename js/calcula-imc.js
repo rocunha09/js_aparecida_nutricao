@@ -56,3 +56,4 @@ function validaGordura(gordura){
         return true
     }
 }
+
